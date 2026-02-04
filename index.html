@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Генератор анкеты</title>
+
+<style>
+@font-face {
+  font-family:'Cinzel';
+  src:url('https://raw.githubusercontent.com/tukiteruamano-a11y/anketa/main/cinzel_regular.ttf');
+}
+
+body{
+  margin:0;
+  background:url(https://i.ibb.co/nNg5LnTx/pattern.jpg) repeat;
+  font-family:'Cinzel', serif;
+}
+
+.generator-wrapper{
+  width:850px;
+  margin:40px auto;
+  background:#ebebeb;
+  padding:25px;
+  border-radius:10px;
+  box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+.form-title{
+  text-align:center;
+  font-size:26px;
+  margin-bottom:25px;
+}
+
+label{
+  display:block;
+  margin-top:15px;
+  margin-bottom:5px;
+  font-size:16px;
+}
+
+input, textarea{
+  width:100%;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #8f8f8f;
+  font-family:'Cinzel', serif;
+  box-sizing:border-box;
+}
+
+textarea{
+  resize:vertical;
+  min-height:80px;
+}
+
+button{
+  width:100%;
+  margin-top:20px;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  font-family:'Cinzel', serif;
+  font-size:16px;
+  cursor:pointer;
+  background:url(https://i.ibb.co/nNg5LnTx/pattern.jpg) repeat;
+}
+
+button:hover{
+  opacity:0.85;
+}
+
+#output{
+  margin-top:20px;
+  min-height:200px;
+  resize:vertical;
+  font-family:monospace;
+}
+</style>
+</head>
+
+<body>
+
+<div class="generator-wrapper">
+<div class="form-title">ГЕНЕРАТОР АНКЕТЫ</div>
+
+<label>Имя (top-name-capsule)</label>
+<input type="text" id="name">
+
+<label>Возраст (sup)</label>
+<input type="text" id="age">
+
+<label>Фото 1 URL</label>
+<input type="text" id="photo1">
+
+<label>Фото 2 URL</label>
+<input type="text" id="photo2">
+
+<label>Внешность</label>
+<input type="text" id="appearance">
+
+<label>Раса</label>
+<input type="text" id="race">
+
+<label>Род занятий</label>
+<input type="text" id="job">
+
+<label>Артефакты</label>
+<input type="text" id="artifacts">
+
+<label>Лояльность</label>
+<input type="text" id="loyalty">
+
+<label>Биография (Enter = новый абзац)</label>
+<textarea id="bio"></textarea>
+
+<label>Пример поста (Enter = новый абзац)</label>
+<textarea id="post"></textarea>
+
+<label>Связь с вами</label>
+<input type="text" id="contact">
+
+<button onclick="generate()">СГЕНЕРИРОВАТЬ И СКОПИРОВАТЬ</button>
+
+<textarea id="output" placeholder="Код появится здесь..."></textarea>
+</div>
+
+<script>
+function paragraphs(text){
+  return text.split('\n')
+             .filter(p => p.trim() !== "")
+             .map(p => `<p>${p}</p>`)
+             .join('\n');
+}
+
+function generate(){
+
+  const name = document.getElementById('name').value;
+  const age = document.getElementById('age').value;
+  const photo1 = document.getElementById('photo1').value;
+  const photo2 = document.getElementById('photo2').value;
+  const appearance = document.getElementById('appearance').value;
+  const race = document.getElementById('race').value;
+  const job = document.getElementById('job').value;
+  const artifacts = document.getElementById('artifacts').value;
+  const loyalty = document.getElementById('loyalty').value;
+  const bio = paragraphs(document.getElementById('bio').value);
+  const post = paragraphs(document.getElementById('post').value);
+  const contact = document.getElementById('contact').value;
+
+const code = `[hideprofile][html]
+<div class="wrapper">
+  <div class="anketa-bg">
+    <div class="anketa-inner">
+
+      <div class="top-title">
+        <div class="top-name-capsule">
+          ${name} <sup>${age}</sup>
+        </div>
+      </div>
+
+      <div class="images">
+        <img src="${photo1}">
+        <img src="${photo2}">
+      </div>
+
+      <div class="title-wrap"><div class="title-text">ВНЕШНОСТЬ</div></div>
+      <div class="text-box">${appearance}</div>
+
+      <div class="title-wrap"><div class="title-text">РАСА</div></div>
+      <div class="text-box">${race}</div>
+
+      <div class="title-wrap"><div class="title-text">РОД ЗАНЯТИЙ</div></div>
+      <div class="text-box">${job}</div>
+
+      <div class="title-wrap"><div class="title-text">АРТЕФАКТЫ</div></div>
+      <div class="text-box">${artifacts}</div>
+
+      <div class="title-wrap"><div class="title-text">ЛОЯЛЬНОСТЬ</div></div>
+      <div class="text-box">${loyalty}</div>
+
+      <div class="divider"></div>
+
+      <div class="title-wrap"><div class="title-text">БИОГРАФИЯ</div></div>
+      <div class="bio-box">
+        ${bio}
+      </div>
+
+      <div class="title-wrap"><div class="title-text">ПРИМЕР ПОСТА</div></div>
+      <details class="spoiler">
+        <summary>Открыть пост</summary>
+        <div class="post-text">
+          ${post}
+        </div>
+      </details>
+
+      <div class="title-wrap"><div class="title-text">СВЯЗЬ С ВАМИ</div></div>
+      <div class="contact">${contact}</div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+${document.querySelector("style").innerHTML}
+</style>
+
+<script>
+const bgElements = document.querySelectorAll('.top-title, .title-wrap, .divider, .spoiler summary');
+bgElements.forEach(el => {
+  const imageUrl = 'https://i.ibb.co/nNg5LnTx/pattern.jpg';
+  const offsetX = Math.floor(Math.random() * 150);
+  const offsetY = Math.floor(Math.random() * 200);
+  el.style.backgroundImage = \`url(\${imageUrl})\`;
+  el.style.backgroundRepeat = 'repeat';
+  el.style.backgroundPosition = \`\${offsetX}px \${offsetY}px\`;
+});
+<\/script>
+[/html]`;
+
+  const output = document.getElementById('output');
+  output.value = code;
+
+  navigator.clipboard.writeText(code);
+}
+</script>
+
+</body>
+</html>
