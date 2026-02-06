@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Генератор анкеты</title>
-
 <style>
 @font-face {
   font-family:'Cinzel';
@@ -22,7 +21,6 @@ body{
   background:#ebebeb;
   padding:25px;
   border-radius:10px;
-  box-shadow:0 0 15px rgba(0,0,0,0.2);
 }
 
 .form-title{
@@ -35,7 +33,6 @@ label{
   display:block;
   margin-top:15px;
   margin-bottom:5px;
-  font-size:16px;
 }
 
 input, textarea{
@@ -61,36 +58,32 @@ button{
   font-family:'Cinzel', serif;
   font-size:16px;
   cursor:pointer;
-}
-
-button:hover{
-  opacity:0.85;
+  background:url(https://i.ibb.co/nNg5LnTx/pattern.jpg) repeat;
 }
 
 #output{
   margin-top:20px;
-  min-height:200px;
+  min-height:220px;
   resize:vertical;
   font-family:monospace;
 }
 </style>
 </head>
-
 <body>
 
 <div class="generator-wrapper">
-<div class="form-title">ГЕНЕРАТОР АНКЕТЫ</div>
+<div class="form-title">ГЕНЕРАТОР АНКЕТЫ ДЛЯ "THE RAVEN"</div>
 
-<label>Имя Фаимлия на английском</label>
+<label>Имя Фамилия</label>
 <input type="text" id="name">
 
 <label>Возраст</label>
 <input type="text" id="age">
 
-<label>Фото 1 (URL)</label>
+<label>Фото 1 URL</label>
 <input type="text" id="photo1">
 
-<label>Фото 2 (URL)</label>
+<label>Фото 2 URL</label>
 <input type="text" id="photo2">
 
 <label>Внешность</label>
@@ -131,7 +124,6 @@ function paragraphs(text){
 }
 
 function generate(){
-
   const name = document.getElementById('name').value;
   const age = document.getElementById('age').value;
   const photo1 = document.getElementById('photo1').value;
@@ -145,14 +137,14 @@ function generate(){
   const post = paragraphs(document.getElementById('post').value);
   const contact = document.getElementById('contact').value;
 
-const code = `[hideprofile][html]
+  const code = `[hideprofile][html]
 <div class="wrapper">
   <div class="anketa-bg">
     <div class="anketa-inner">
 
       <div class="top-title">
-        <div class="top-name-capsule">
-          ${name} <sup>${age}</sup>
+        <div class="top-name-kapsula">
+          ${name}, ${age}
         </div>
       </div>
 
@@ -161,29 +153,44 @@ const code = `[hideprofile][html]
         <img src="${photo2}">
       </div>
 
-      <div class="title-wrap"><div class="title-text">ВНЕШНОСТЬ</div></div>
+      <div class="title-wrap">
+        <div class="title-text"><span>ВНЕШНОСТЬ</span></div>
+      </div>
       <div class="text-box">${appearance}</div>
 
-      <div class="title-wrap"><div class="title-text">РАСА</div></div>
+      <div class="title-wrap">
+        <div class="title-text"><span>РАСА</span></div>
+      </div>
       <div class="text-box">${race}</div>
 
-      <div class="title-wrap"><div class="title-text">РОД ЗАНЯТИЙ</div></div>
+      <div class="title-wrap">
+        <div class="title-text"><span>РОД ЗАНЯТИЙ</span></div>
+      </div>
       <div class="text-box">${job}</div>
 
-      <div class="title-wrap"><div class="title-text">АРТЕФАКТЫ</div></div>
+      <div class="title-wrap">
+        <div class="title-text"><span>АРТЕФАКТЫ</span></div>
+      </div>
       <div class="text-box">${artifacts}</div>
 
-      <div class="title-wrap"><div class="title-text">ЛОЯЛЬНОСТЬ</div></div>
+      <div class="title-wrap">
+        <div class="title-text"><span>ЛОЯЛЬНОСТЬ</span></div>
+      </div>
       <div class="text-box">${loyalty}</div>
 
-      <div class="divider"></div>
+      <div class="razdel"></div>
 
-      <div class="title-wrap"><div class="title-text">БИОГРАФИЯ</div></div>
+      <div class="title-wrap">
+        <div class="title-text"><span>БИОГРАФИЯ</span></div>
+      </div>
       <div class="bio-box">
         ${bio}
       </div>
 
-      <div class="title-wrap"><div class="title-text">ПРИМЕР ПОСТА</div></div>
+      <div class="title-wrap">
+        <div class="title-text"><span>ПРИМЕР ПОСТА</span></div>
+      </div>
+
       <details class="spoiler">
         <summary>Открыть пост</summary>
         <div class="post-text">
@@ -191,37 +198,46 @@ const code = `[hideprofile][html]
         </div>
       </details>
 
-      <div class="title-wrap"><div class="title-text">СВЯЗЬ С ВАМИ</div></div>
-      <div class="contact">${contact}</div>
+      <div class="title-wrap">
+        <div class="title-text"><span>СВЯЗЬ С ВАМИ</span></div>
+      </div>
+
+      <div class="contact">
+        ${contact}
+      </div>
 
     </div>
   </div>
 </div>
 
 <style>
-${document.querySelector("style").innerHTML}
+@font-face { font-family:'Cinzel'; src:url('https://raw.githubusercontent.com/tukiteruamano-a11y/anketa/main/cinzel_regular.ttf'); }
+.wrapper .anketa-bg .anketa-inner .top-title .top-name-kapsula, .wrapper .anketa-bg .anketa-inner .top-title { font-family:'Cinzel', serif !important; }
+.wrapper { width:850px; margin:auto; }
+.anketa-bg { padding:5px; background:url(https://i.ibb.co/nNg5LnTx/pattern.jpg) repeat; border-radius:10px; }
+.anketa-inner { background:#ebebeb; padding:15px; border-radius:10px; font-family:'Cinzel', serif; }
+.top-title { position:relative; border-radius:12px; height:40px; margin:15px 0 8px; background:url(https://i.ibb.co/nNg5LnTx/pattern.jpg) repeat; text-align:center; }
+.top-name-kapsula { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#ebebeb; padding:0 10px; height:40px; line-height:40px; font-size:24px; color:#000; border-radius:6px; font-family:'Cinzel', serif !important; }
+.top-name-capsule sup { font-size:18px; vertical-align:super; color:#000; }
+.images { text-align:center; margin-bottom:25px; }
+.images img { width:230px; height:230px; object-fit:cover; border-radius:15px; margin:0 10px; filter: sepia(1) hue-rotate(90deg) brightness(0.95) contrast(1.2) saturate(0.4); }
+.title-wrap { position:relative; border-radius:12px; height:32px; margin:30px 0 8px; background:url(https://i.ibb.co/nNg5LnTx/pattern.jpg) repeat; text-align:center; }
+.title-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#ebebeb; padding:0 10px; font-size:18px; color:#000; border-radius:6px; height:32px; }
+.text-box { border:1px solid #8f8f8f; border-radius:10px; padding:10px; text-align:center; }
+.razdel { height:6px; margin:30px 0; border-radius:10px; background:url(https://i.ibb.co/nNg5LnTx/pattern.jpg) repeat; }
+.bio-box { border:1px solid #8f8f8f; border-radius:10px; padding:15px; text-align:justify; }
+.bio-box p { margin:0 0 10px; text-indent:25px; }
+.spoiler summary { padding:6px; border-radius:10px; cursor:pointer; color:#ebebeb; text-align:center; font-size:12px; background:url(https://i.ibb.co/nNg5LnTx/pattern.jpg) repeat; }
+.post-text { margin-top:8px; border:1px solid #8f8f8f; border-radius:10px; padding:10px; text-align:justify; text-indent:25px; }
+.contact { border:1px solid #8f8f8f; border-radius:10px; padding:8px; text-align:center; }
+.title-text span { position:relative; top:6px; }
 </style>
-
-<script>
-const bgElements = document.querySelectorAll('.top-title, .title-wrap, .divider, .spoiler summary');
-bgElements.forEach(el => {
-  const imageUrl = 'https://i.ibb.co/nNg5LnTx/pattern.jpg';
-  const offsetX = Math.floor(Math.random() * 150);
-  const offsetY = Math.floor(Math.random() * 200);
-  el.style.backgroundImage = \`url(\${imageUrl})\`;
-  el.style.backgroundRepeat = 'repeat';
-  el.style.backgroundPosition = \`\${offsetX}px \${offsetY}px\`;
-});
-<\/script>
 [/html]`;
 
-  const output = document.getElementById('output');
-  output.value = code;
-
+  document.getElementById('output').value = code;
   navigator.clipboard.writeText(code);
 }
 </script>
 
 </body>
 </html>
-
